@@ -37,7 +37,7 @@
 <body>
     <h4>Expense Tracker</h4>
     <div id="form-container">
-        <form onsubmit="handle_submit(event)">
+        <form method="post" onsubmit="handle_submit(event)">
             <input type="hidden" name="expense_id">
             <label for="expense_cost">Choose Expense:</label>
             <input type="number" name="expense_cost" id="expense_cost" min="1"/>

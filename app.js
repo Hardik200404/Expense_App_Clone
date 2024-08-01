@@ -1,7 +1,6 @@
 let express = require('express')
-let helmet = require('helmet')
-let morgan = require('morgan')
 const cors = require('cors')
+const path = require('path')
 const sequelize = require('./util/database')
 const user_model = require('./models/user_model')
 const expense_model = require('./models/expense_model')
@@ -11,9 +10,9 @@ require('dotenv').config
 
 let app = express()
 
+app.use(express.static(path.join(__dirname,'views')))
+
 app.use(cors())
-app.use(helmet())
-app.use(morgan('combined'))
 app.use(express.json())
 app.use(express.static('views/user_views'))
 
