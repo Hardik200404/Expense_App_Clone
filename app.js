@@ -1,6 +1,4 @@
 let express = require('express')
-let helmet = require('helmet')
-let morgan = require('morgan')
 const cors = require('cors')
 const path = require('path')
 const sequelize = require('./util/database')
@@ -12,29 +10,9 @@ require('dotenv').config
 
 let app = express()
 
+app.use(express.static(path.join(__dirname,'views')))
+
 app.use(cors())
-app.use(helmet({
-    contentSecurityPolicy: {
-        directives: {
-            defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "https://cdnjs.cloudflare.com",
-                "https://checkout.razorpay.com",
-                "https://api.razorpay.com",
-                "https://cdn.jsdelivr.net"
-            ],
-            frameSrc: [
-                "'self'", 
-                "https://checkout.razorpay.com", 
-                "https://api.razorpay.com"
-            ],
-            connectSrc: [
-                "'self'",
-                "https://api.razorpay.com"
-            ],
-        }
-    }
-}))
-app.use(morgan('combined'))
 app.use(express.json())
 app.use(express.static('views/user_views'))
 
@@ -45,10 +23,6 @@ app.get('/',(req,res)=>{
 
 require('./routes/user_routes')(app)
 require('./routes/expense_routes')(app)
-
-app.use((req,res)=>{
-    res.sendFile(path.join(__dirname,`views/${req.url}`))
-})
 
 user_model.hasMany(expense_model)
 expense_model.belongsTo(user_model)
