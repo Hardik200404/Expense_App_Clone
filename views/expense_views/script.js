@@ -1,5 +1,5 @@
 function buy_premium(event){
-    fetch('http://localhost:3000/user/purchase-premium',{
+    fetch('http://13.201.104.73:3000/user/purchase-premium',{
         method: 'GET',
         contentType: 'application/json',
         headers: {'Authorization': localStorage.getItem('token')}
@@ -12,7 +12,7 @@ function buy_premium(event){
             'key': response.key_id,
             'order_id': response.order.id,
             'handler': function(response){
-                axios.post('http://localhost:3000/user/update-transaction-status',{
+                axios.post('http://13.201.104.73:3000/user/update-transaction-status',{
                     order_id: options.order_id,
                     payment_id: response.razorpay_payment_id,
                 },{headers: {'Authorization': localStorage.getItem('token')}
@@ -50,7 +50,7 @@ function show_leaderboard(event){
     let leaderboard_btn = document.getElementById('leaderboard_btn')
     leaderboard_btn.remove()
 
-    axios.get('http://localhost:3000/premium/leaderboard')
+    axios.get('http://13.201.104.73:3000/premium/leaderboard')
     .then(response=>{
         for(let user_expense of response.data){
             let list_item = document.createElement('li')
