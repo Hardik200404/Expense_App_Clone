@@ -14,11 +14,12 @@ app.use(express.static(path.join(__dirname,'views')))
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('views/expense_views'))
 app.use(express.static('views/user_views'))
 
 app.get('/',(req,res)=>{
-    console.log("hello")
-    res.send("Hello World")
+    console.log('hello')
+    res.send('Hello World')
 })
 
 require('./routes/user_routes')(app)
