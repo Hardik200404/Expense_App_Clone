@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch_expenses(current_page, items_per_page)
 
     //check if premium
-    fetch('http://localhost:3000/user/check-premium',{
+    fetch('http://13.201.73.46:3000/user/check-premium',{
         method: 'GET',
         contentType: 'application/json',
         headers: {"Authorization": token}
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 function fetch_expenses(page, limit) {
-    fetch(`http://localhost:3000/expense/get-expenses-paginated?page=${page}&limit=${limit}`,{
+    fetch(`http://13.201.73.46:3000/expense/get-expenses-paginated?page=${page}&limit=${limit}`,{
         method: 'GET',
         contentType: 'application/json',
         headers: {'Authorization': localStorage.getItem('token')}
@@ -108,7 +108,7 @@ function handle_submit(event){
         userId: localStorage.getItem('token')
     }
 
-    fetch('http://localhost:3000/expense/add-expense',{
+    fetch('http://13.201.73.46:3000/expense/add-expense',{
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(expense_details),
@@ -179,7 +179,7 @@ function edit_expense(id){
 
 function delete_expense(id) {
     //console.log('Delete expense with ID:', id)
-    fetch(`http://localhost:3000/expense/delete-expense/${id}`, {
+    fetch(`http://13.201.73.46:3000/expense/delete-expense/${id}`, {
         method: 'DELETE',
         headers: {'Authorization': localStorage.getItem('token')}
     })

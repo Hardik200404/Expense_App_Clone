@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     table.appendChild(heading_row)
 
-    axios.get('http://localhost:3000/expense/get-chart',{
+    axios.get('http://13.201.73.46:3000/expense/get-chart',{
         headers: {'Authorization': localStorage.getItem('token')}
     }).then(response=>{
         for(let record of response.data.db_res){
@@ -104,7 +104,7 @@ function download_csv(event){
 
     let file_id = document.getElementById('hidden-id').value
 
-    axios.post('http://localhost:3000/expense/download-csv',
+    axios.post('http://13.201.73.46:3000/expense/download-csv',
         {file_id: file_id},
         {headers: {'Authorization': localStorage.getItem('token')}
     }).then(response=>{

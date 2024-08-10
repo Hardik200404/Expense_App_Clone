@@ -69,7 +69,7 @@ async function forgot_password_service(email){
             sender,
             to: receivers,
             subject: 'Reset Password',
-            htmlContent: `<a href='http://localhost:3000/password/reset-password/${uuid}'>Click Here To Reset Password</a>`
+            htmlContent: `<a href='http://13.201.73.46:3000/password/reset-password/${uuid}'>Click Here To Reset Password</a>`
         })
         return {message: 'Email Sent'}
     }catch(err){

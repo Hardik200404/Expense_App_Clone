@@ -6,7 +6,7 @@ function handle_signup(event){
         email: event.target.email.value,
         password: event.target.password.value
     }
-    fetch('http://localhost:3000/user/signup',{
+    fetch('http://13.201.73.46:3000/user/signup',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -35,7 +35,7 @@ function handle_signin(event){
 
     let dynamic_div = document.getElementById('dynamic')
 
-    fetch('http://localhost:3000/user/login',{
+    fetch('http://13.201.73.46:3000/user/login',{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -62,7 +62,7 @@ function handle_signin(event){
 function handle_forgot_password(event){
     event.preventDefault()
 
-    axios.post('http://localhost:3000/password/forgot-password',{
+    axios.post('http://13.201.73.46:3000/password/forgot-password',{
         email: event.target.email.value
     })
     .then(response=>{
@@ -80,7 +80,7 @@ function handle_reset_password(event){
         return alert('Password Did Not Match')
     }
 
-    axios.post('http://localhost:3000/password/reset-new-password',{
+    axios.post('http://13.201.73.46:3000/password/reset-new-password',{
         userId: event.target.userId.value,
         new_password: event.target.new_password.value
     })
