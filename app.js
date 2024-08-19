@@ -19,7 +19,8 @@ app.use(express.static('views/user_views'))
 
 app.get('/',(req,res)=>{
     console.log('hello')
-    res.send('Hello World')
+    //res.send('Hello World')
+    res.sendFile(path.join(__dirname, 'views/user_views', 'index.html'))
 })
 
 require('./routes/user_routes')(app)
