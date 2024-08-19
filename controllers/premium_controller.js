@@ -1,5 +1,4 @@
-let { 
-    get_leaderboard_service, upgrade_to_premium_service,
+let { get_leaderboard_service, upgrade_to_premium_service,
     check_premium_service, update_tsc_status_service
                         } = require('../services/premium_services')
 
