@@ -4,21 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="form.css">
 </head>
 <body>
-    <div id="signup_div">
+    <div id="signup_div" class="container">
         <form id="signup_form" method="post" onsubmit="handle_signup(event)">
             <label for="username">Username:</label>
             <input id="username" name="username" type="text" placeholder="Name" required>
             <label for="email">Email:</label>
-            <input id="email" name="email" type="email" placeholder="Email" required>
+            <input id="email" name="email" type="email" placeholder="abc@xyz.com" required>
             <label for="password">Password:</label>
-            <input id="password" name="password" type="password" placeholder="Password" required>
+            <input id="password" name="password" type="password" placeholder="********" required>
             <button type="submit">Submit</button>
         </form>
+        <br>
+        <a href="signin.html">Already Registered?</a>
+        <div id="dynamic"></div>
     </div>
-    <a href="signin.html">Already Registered?</a>
-    <div id="dynamic"></div>
 </body>
 <script src="index.js"></script>
 </html>

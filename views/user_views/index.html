@@ -4,10 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Tracker</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h4>Welcome To Expense Tracker Application</h4>
-    <button onclick="window.location.href='signin.html';">Sign In</button>
-    <button onclick="window.location.href='signup.html';">Sign Up</button>
+    <div class="container">
+        <h4>Personal Expense Tracker</h4>
+        <p>Your personal finance assistant. Track your expenses and stay on top of your budget with ease.</p>
+        <div class="buttons">
+            <button id="signin" onclick="window.location.href='signin.html';">Sign In</button>
+            <button id="signup" onclick="window.location.href='signup.html';">Sign Up</button>
+        </div>
+    </div>
+    <div class="screenshot">
+        <img src="screenshot.png" alt="Screenshot" width="600" height="200">
+    </div>
 </body>
 </html>
+

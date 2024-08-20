@@ -105,26 +105,46 @@ function handle_submit(event){
         expense_cost: event.target.expense_cost.value,
         description: event.target.description.value,
         category: event.target.category.value,
-        userId: localStorage.getItem('token')
     }
 
-    fetch('http://localhost:3000/expense/add-expense',{
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(expense_details),
-    }).then((response) => {
-        if(response.ok){
-            return response.json()
-        }else{
-            throw new Error('Error submitting the form')
-        }
-    })
-    .then((result) => {
-        alert('New Expense Added')
-        fetch_expenses(current_page, items_per_page)
-    })
-    .catch((err) => console.log(err))
-    
+    if(event.target.expense_id.value){
+        //Submitted after editing
+        fetch(`http://localhost:3000/expense/edit-expense/${event.target.expense_id.value}`,{
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token')},
+            body: JSON.stringify(expense_details),
+        }).then((response) => {
+            if(response.ok){
+                return response.json()
+            }else{
+                throw new Error('Error submitting the form')
+            }
+        })
+        .then((result) => {
+            console.log(result)
+            alert('Expense Updated')
+            fetch_expenses(current_page, items_per_page)
+        })
+        .catch((err) => console.log(err))
+    }else{
+        fetch('http://localhost:3000/expense/add-expense',{
+            method: 'POST',
+            headers: {'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token')},
+            body: JSON.stringify(expense_details),
+        }).then((response) => {
+            if(response.ok){
+                return response.json()
+            }else{
+                throw new Error('Error submitting the form')
+            }
+        })
+        .then((result) => {
+            alert('New Expense Added')
+            fetch_expenses(current_page, items_per_page)
+        })
+        .catch((err) => console.log(err))
+    }
+
     // Clearing the input fields
     document.getElementById('expense_cost').value = ''
     document.getElementById('description').value = ''
@@ -143,23 +163,23 @@ function display_expenses(expenses) {
             <td>${expense.category}</td>
             <td>${expense.expense_cost}</td>
             <td>
-                <button class="edit-btn" data-id="${expense.id}">Edit</button>
-                <button class="delete-btn" data-id="${expense.id}">Delete</button>
+                <button class="edit-btn" title="Edit" data-id="${expense.id}"><i class="fa-solid fa-pencil"></i></button>
+                <button class="delete-btn" title="Delete" data-id="${expense.id}" style="background-color: darkred"><i class="fas fa-trash-alt"></i></button>
             </td>
         `
         tbody.appendChild(row)
-    })
 
-    document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', (event) => {
-            const id = event.target.getAttribute('data-id')
-            edit_expense(id)
+        // Attach event listeners with the full expense object
+        const editButton = row.querySelector('.edit-btn')
+        editButton.addEventListener('click', () => {
+            edit_expense(expense)
         })
     })
 
     document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', (event) => {
-            const id = event.target.getAttribute('data-id')
+            const buttonElement = event.currentTarget
+            const id = buttonElement.getAttribute('data-id')
             delete_expense(id)
         })
     })
@@ -173,19 +193,47 @@ function update_pagination(total_pages, current_page) {
 }
 
 
-function edit_expense(id){
-    //console.log('Edit expense with ID:', id)
+function edit_expense(expense){
+    // console.log('Edit expense: ', expense)
+
+    document.getElementById('expense_id').value = expense.id
+    document.getElementById('expense_cost').value = expense.expense_cost
+    document.getElementById('description').value = expense.description
+    document.getElementById('category').value = expense.category
+
+    document.getElementById('form-container').scrollIntoView({ behavior: 'smooth' })
 }
 
 function delete_expense(id) {
-    //console.log('Delete expense with ID:', id)
-    fetch(`http://localhost:3000/expense/delete-expense/${id}`, {
-        method: 'DELETE',
-        headers: {'Authorization': localStorage.getItem('token')}
+    console.log('Delete expense with ID:', id)
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Delete",
+        cancelButtonText: "Cancel",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Proceed with the delete request
+            fetch(`http://localhost:3000/expense/delete-expense/${id}`, {
+                method: 'DELETE',
+                headers: {'Authorization': localStorage.getItem('token')}
+            })
+            .then(response => {
+                // alert('Expense Deleted Successfully')
+                Swal.fire("Deleted!", "Expense has been removed.", "success")
+                fetch_expenses(current_page, items_per_page)
+            })
+            .catch(error => {
+                console.error('Error deleting expense:', error)
+                Swal.fire("Error!", "There was a problem deleting the expense.", "error")
+            })
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            // User canceled the action
+            Swal.fire("Cancelled", "The expense is safe.", "info")
+        }
     })
-    .then(response => {
-        alert('Expense Deleted Successfully')
-        fetch_expenses(current_page, items_per_page)
-    })
-    .catch(error => console.error('Error deleting expense:', error))
 }

@@ -1,0 +1,88 @@
+/* styles.css */
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic Styling for the Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black; 
+    color: #333; /* Dark gray text color */
+    line-height: 1.6;
+}
+
+/* Container Styling */
+.container {
+    text-align: center;
+    padding: 50px; 
+    margin: 20px auto; /* Center container horizontally with margins */
+    border-radius: 8px; 
+    /*box-shadow: 0 4px 8px #004DE0; /* Light shadow for depth */
+    max-width: 800px; /* Limit width */
+}
+
+/* Heading Styling */
+h4 {
+    font-size: 48px;
+    color:#004DE0;
+    margin-bottom: 20px;
+}
+
+/* Paragraph Styling */
+p {
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Button Styling */
+.buttons {
+    margin-top: 20px;
+}
+
+#signin {
+    background-color: #004DE0;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#signup {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    border: solid 1px white;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #004DE0; 
+    transform: scale(1.1);
+}
+
+/* Screenshot Section Styling */
+.screenshot {
+    text-align: center;
+    margin: 20px auto; 
+}
+
+.screenshot img {
+    max-width: 100%; /* Responsive image */
+    height: auto;
+    border: 2px solid #004DE0;
+    border-radius: 8px; /* Rounded corners for image */
+}

@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In</title>
+    <link rel="stylesheet" href="form.css">
 </head>
 <body>
-    <div>
+    <div class="container">
         <form id="signin_form" method="post" onsubmit="handle_signin(event)">
             <label for="email">Email:</label>
-            <input id="email" name="email" type="email" placeholder="Email" required>
+            <input id="email" name="email" type="email" placeholder="abc@xyz.com" required>
             <label for="password">Password:</label>
-            <input id="password" name="password" type="password" placeholder="Password" required>
+            <input id="password" name="password" type="password" placeholder="********" required>
             <button type="submit">LogIn</button>
         </form>
+        <br>
+        <a href="signup.html">Not Registered?</a>
+        <a href="forgot_password.html">Forgot Password?</a>
+        <div id="dynamic"></div>
     </div>
-    <a href="signup.html">Not Registered?</a>
-    <a href="forgot_password.html">Forgot Password?</a>
-    <div id="dynamic"></div>
 </body>
 <script src="index.js"></script>
 </html>
