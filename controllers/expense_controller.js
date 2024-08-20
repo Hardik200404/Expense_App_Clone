@@ -3,8 +3,8 @@ const get_date_time = require('../util/date_time_now')
 const upload_csv = require('../util/s3_upload')
 const generate_csv = require('../util/generate_csv')
 
-const { get_expense_service, get_expense_paginated_service, 
-    add_expense_service, delete_expense_service } = require('../services/expense_services')
+const { get_expense_service, get_expense_paginated_service, add_expense_service,
+    edit_expense_service, delete_expense_service } = require('../services/expense_services')
 
 async function get_expense(req,res){
     let userId = verify_jwt_token(req.headers.authorization)
@@ -32,14 +32,14 @@ async function get_expense_paginated(req, res){
 }
 
 async function add_expense(req,res){
-    req.body.userId = verify_jwt_token(req.body.userId)
+    let userId = verify_jwt_token(req.headers.authorization)
     let date_time = get_date_time()
     let data_to_insert = {
         expense_cost: req.body.expense_cost,
         description: req.body.description,
         category: req.body.category,
         created_at: date_time,
-        userId: req.body.userId
+        userId: userId
     }
     
     let expense = await add_expense_service(data_to_insert)
@@ -50,11 +50,30 @@ async function add_expense(req,res){
     }
 }
 
+async function edit_expense(req,res){
+    let expense_id = req.params.id
+    let userId = verify_jwt_token(req.headers.authorization)
+
+    let data_to_insert = {
+        expense_cost: req.body.expense_cost,
+        description: req.body.description,
+        category: req.body.category,
+        userId: userId
+    }
+
+    let response = await edit_expense_service(data_to_insert, expense_id, userId)
+    if(response.error){
+        res.status(500).json({ error: response.error })
+    }else{
+        res.status(201).send(response)
+    }
+}
+
 async function delete_expense(req,res){
     let expense_id = req.params.id
     let userId = verify_jwt_token(req.headers.authorization)
     
-    let response = await delete_expense_service(expense_id,userId)
+    let response = await delete_expense_service(expense_id, userId)
     if(response.error){
         res.status(500).json({ error: response.error })
     }else{
@@ -100,6 +119,6 @@ async function download_csv(req,res){
 }
 
 module.exports = {
-    get_expense, add_expense, delete_expense, 
+    get_expense, add_expense, edit_expense, delete_expense, 
     get_chart, download_csv, get_expense_paginated
 }

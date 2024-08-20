@@ -57,6 +57,46 @@ async function add_expense_service(data_to_insert){
     }
 }
 
+async function edit_expense_service(data_to_insert, expense_id, userId){
+    const transaction = await sequelize.transaction()
+    try {
+        // Fetch user and expense within the transaction
+        const user = await user_model.findByPk(userId, { transaction })
+        const expense = await expense_model.findByPk(expense_id, { transaction })
+
+        if (!user || !expense) {
+            throw new Error('User or Expense not found')
+        }
+
+        const oldExpenseCost = parseInt(expense.expense_cost)
+        const newExpenseCost = parseInt(data_to_insert.expense_cost)
+
+        // Update the expense table
+        await expense.update(data_to_insert, { transaction })
+
+        // Update user’s total expense if the cost has changed
+        if (oldExpenseCost !== newExpenseCost) {
+            let totalExpenses = parseInt(user.total_expenses)
+
+            totalExpenses -= oldExpenseCost
+            totalExpenses += newExpenseCost
+
+            // Update the user’s total expenses
+            await user.update({ total_expenses: totalExpenses }, { transaction })
+        }
+
+        // Commit the transaction
+        await transaction.commit()
+        console.log('Expense Updated')
+        return { message: 'Expense Updated Successfully' }
+    }catch(err){
+        // Rollback the transaction in case of errors
+        await transaction.rollback()
+        console.log('Error updating expense:', err)
+        return { error: err }
+    }
+}
+
 async function delete_expense_service(expense_id,userId){
     try{
         await sequelize.transaction(async (t) => {
@@ -80,5 +120,6 @@ module.exports = {
     get_expense_service,
     get_expense_paginated_service,
     add_expense_service,
+    edit_expense_service,
     delete_expense_service
 }

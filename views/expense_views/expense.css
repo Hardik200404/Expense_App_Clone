@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic Styling for the Body */
+body {
+    font-family: Arial, sans-serif;
+    background-color: black !important;
+    color: #333; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+h6 {
+    font-size: 2em;
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* Heading Styling */
+h4 {
+    font-size: 2em;
+    color: #004DE0;
+    margin-bottom: 20px;
+}
+
+/* Container Styling */
+#form-container, #expense-container {
+    background: #111;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 2px;
+    font-size: 1em;
+    color: white;
+}
+
+input[type="number"], input[type="text"], select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 100%; 
+}
+
+
+#submit {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 20px;
+}
+
+#submit:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+
+#expense-container {
+    background: #111;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 100%;
+    margin-bottom: 20px; 
+}
+
+#items-per-page {
+    background: white;
+    padding: 6px;
+    border-radius: 8px;
+    max-width: 10%;
+    margin-bottom: 8px; 
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border:1px solid #ddd;
+    padding: 8px;
+    color: white;
+}
+th {
+    background-color: #004DE0;
+    color: black;
+}
+
+button {
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    padding: 6px;
+    border-radius: 8px !important;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-top: 10px !important;
+}
+
+button:hover {
+    background-color: #0056b3; 
+    transform: scale(1.05);
+}
+
+.pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.pagination button {
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #007bff; 
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+}
+
+.pagination button.disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.pagination button:hover:not(.disabled) {
+    background-color: #0056b3; 
+}
+
+/* Leaderboard list item */
+
+li {
+    color: white;
+    font: 1em sans-serif;
+}
